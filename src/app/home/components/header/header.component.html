@@ -1,6 +1,6 @@
 <div class="h-[4rem] w-full flex items-center px-10 border-b-2">
-    <div class="flex items-center gap-[10px] w-3/5">
-        <img src="" alt="" class="h-[50px] w-[50px]">
+    <div class="flex items-center w-3/5">
+        <img src="/assets/download.jpeg" alt="" class="h-full bg-green-200 w-[50px]">
         <h1 class='font-bold'>MONEY TRACKER</h1>
     </div>
     <div class="flex justify-between w-2/5">
@@ -10,7 +10,69 @@
             <div class="hover:text-[rgb(92,146,183)] font-semibold">Contact Us</div>
         </div>
         <div class="flex items-center">
-            <button class="bg-[rgb(194,231,255)] h-[40px] text-black w-[150px] rounded-[30px] font-semibold hover:scale-105 active:scale-100 hover:shadow-lg shadow-indigo-500/50">New Transaction</button>
+            <button (click)="addTransaction()" class="bg-[rgb(194,231,255)] h-[40px] text-black w-[150px] rounded-[30px] font-semibold hover:scale-105 active:scale-100 hover:shadow-lg shadow-indigo-500/50 transition ease-in-out duration-100">New Transaction</button>
         </div>
     </div>
 </div>
+
+
+<form [formGroup]="transactionForm">
+    <div *ngIf="!togglePopup" class="absolute top-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="w-full xs:w-[80%] max-w-[40rem] h-auto max-h-[85%] px-7 opacity-100 py-5 rounded-lg bg-white flex flex-col gap-3 opacity-1 overflow-x-auto">
+            <div class="text-[2rem]"><b>Add Transaction</b></div>
+            <div class="flex flex-col">
+                <label for="" class="pl-2">Transaction Type</label>
+                <select formControlName="transactionType" name="" id="" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
+                    <option value="" class="outline-none bg-gray-200 py-2 px-3" selected disabled>Choose transaction type</option>
+                    <option value="income" class="outline-none bg-gray-200 py-2 px-3 hover:bg-slate-300">Income</option>
+                    <option value="expense" class="outline-none bg-gray-200 py-2 px-3">Expense</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="" class="pl-2">Transaction Amount</label>
+                <input type="number" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
+            </div>
+            
+            <div class="flex flex-col" *ngIf="transactionForm?.get('transactionType')?.value">
+                <label for="" class="pl-2">Category</label>
+                <select *ngIf="transactionForm?.get('transactionType')?.value === 'income'" name="" id="" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
+                    <option value="" class="outline-none bg-gray-200 py-2 px-3" selected disabled>Choose amount category</option>
+                    <option value="salary" class="outline-none bg-gray-200 py-2 px-3 hover:bg-slate-300">Salary</option>
+                    <option value="freelance" class="outline-none bg-gray-200 py-2 px-3">Freelance</option>
+                    <option value="investment" class="outline-none bg-gray-200 py-2 px-3">Investment</option>
+                    <option value="business" class="outline-none bg-gray-200 py-2 px-3">Business</option>
+                    <option value="other" class="outline-none bg-gray-200 py-2 px-3">Other income</option>
+                </select>  
+
+                <select *ngIf="transactionForm?.get('transactionType')?.value === 'expense'" name="" id="" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
+                    <option value="" class="outline-none bg-gray-200 py-2 px-3" selected disabled>Choose amount category</option>
+                    <option value="home" class="outline-none bg-gray-200 py-2 px-3">Home maintanance</option>
+                    <option value="transportaion" class="outline-none bg-gray-200 py-2 px-3">Transportaion</option>
+                    <option value="food" class="outline-none bg-gray-200 py-2 px-3">food</option>
+                    <option value="shopping" class="outline-none bg-gray-200 py-2 px-3">Shopping</option>
+                    <option value="education" class="outline-none bg-gray-200 py-2 px-3">Education</option>
+                    <option value="health" class="outline-none bg-gray-200 py-2 px-3">Health</option>
+                    <option value="bills" class="outline-none bg-gray-200 py-2 px-3">Bills</option>
+                    <option value="entertainment" class="outline-none bg-gray-200 py-2 px-3">Entertainment</option>
+                    <option value="other" class="outline-none bg-gray-200 py-2 px-3">Other expenses</option>
+                    
+                </select>      
+            </div>
+
+            <div class="flex flex-col">
+                <label for="" class="pl-2">Description</label>
+                <textarea type="text" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300"></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="" class="pl-2">Date</label>
+                <input type="date" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
+            </div>
+            <div class="flex justify-between mt-2">
+                <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400" (click)="addTransaction()">Cancel</button>
+                <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400">Create</button>
+            </div>
+        </div>
+    </div>
+</form>
