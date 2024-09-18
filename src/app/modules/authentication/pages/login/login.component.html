@@ -1,0 +1,69 @@
+<div class="w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white border w-[35rem] h-[auto] py-[2rem] rounded-[.5rem] flex flex-col items-center justify-center overflow-hidden backdrop-blur-3xl">
+        <div class="w-[80%] flex items-center justify-center flex-col">
+            <div class="text-[2rem] w-full flex justify-center mb-7 text-auth_proceed_button_text">Register your account</div>
+            <form
+                [formGroup]="loginForm"
+                (ngSubmit)="onSubmit()"
+                novalidate 
+                class="w-full flex flex-col items-center justify-center"
+            >
+                <div class="flex flex-col w-[100%]"> 
+                    
+                    <label for="" class="pl-2">
+                        Email
+                    </label>
+                    <div class="text-red-900 pl-2" *ngIf="emailError && emailTouched">
+                        Please provide your email.
+                    </div>
+                    <div class="text-red-900 pl-2" *ngIf="emailErrorPattern && emailTouched">
+                        Please enter a valid email address.
+                    </div>
+                    <input 
+                        type="email"  
+                        placeholder="email@gmail.com"
+                        formControlName="email"
+                        (blur)="onEmailChange($event)"
+                        class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300 mb-4"
+                        [ngModel]="demoEmail"
+                    > 
+                    
+                    <label for="" class="pl-2">
+                        Password
+                    </label>
+                    <div class="text-red-900 pl-2" *ngIf="passwordError && passwordTouched">
+                        Please enter password
+                    </div>
+                    <div class="text-red-900 pl-2" *ngIf="passwordErrorPattern && passwordTouched">
+                        {{ regexError }}
+                    </div>
+                    <input 
+                        type="password"  
+                        placeholder="Enter password"
+                        formControlName="password"
+                        (blur)="onPasswordChange($event)"
+                        class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300 mb-4"
+                        [ngModel]="demoPassword"
+                    > 
+                    
+                </div>
+                    
+                <div class="w-full">
+                    <div class="text-red-900 mb-1">{{ errorMessage }}</div>
+                </div>
+                <div class="flex justify-between w-full items-center text-[1.1rem]">
+                    <div class="">Don't have an account? 
+                        <a href="/auth/login" class="hover:text-blue-600 text-auth_proceed_button_text focus: transition duration-200 ease-in-out active:scale-150">
+                            Signup
+                        </a>
+                    </div>
+                    <button class="bg-slate-400 text-auth_proceed_button_text rounded-[.5rem] w-[auto] px-6 h-[2.5rem] flex items-center justify-center hover:shadow-xl active:scale-95  transition ease-in-out duration-200 disabled:cursor-not-allowed cursor-auto">
+                        SUBMIT
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
