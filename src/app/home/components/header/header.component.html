@@ -86,6 +86,7 @@
             </div>
             <div class="flex justify-between mt-2">
                 <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400" (click)="addTransaction()">Cancel</button>
+                <div class="text-red-700">{{errorMessage}}</div>
                 <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400 disabled:cursor-not-allowed" [disabled]="transactionForm.invalid" type="submit" (click)="onSubmit()">Create</button>
             </div>
         </div>
