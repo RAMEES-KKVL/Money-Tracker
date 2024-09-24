@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { BackendService } from "src/app/services/backend.service";
+import { LoginService } from "src/app/services/login.service";
 import { FailedResponsse, SuccessResponse } from "src/model/interfaces";
 import Swal from "sweetalert2"
 
@@ -13,7 +14,7 @@ import Swal from "sweetalert2"
 export class HeaderComponent { 
     togglePopup: boolean = false
     transactionForm: FormGroup
-    constructor(private fb: FormBuilder, private backendService: BackendService, private route: Router) {
+    constructor(private fb: FormBuilder, private backendService: BackendService, private route: Router, private loginService: LoginService) {
         this.transactionForm = this.fb.group({
             transactionType: ["", Validators.required],
             transactionAmount: ["", Validators.required],
@@ -99,15 +100,21 @@ export class HeaderComponent {
         } else {
             const token = localStorage.getItem("token")
             if (token) {
-                this.backendService.addTransaction(this.transactionForm.value, token).subscribe({
+                this.backendService.addTransaction(this.transactionForm.value).subscribe({
                     next: (response: SuccessResponse)=>{
-                        Swal.fire("Transaction added successfully").then(()=> {
-                            this.transactionForm.reset() 
-                            this.addTransaction()
-                        }) 
+                        if (response) {
+                            Swal.fire("Transaction added successfully").then(()=> {
+                                this.transactionForm.reset() 
+                                this.addTransaction()
+                            }) 
+                        }
                     },
                     error: (response: HttpErrorResponse)=>{
                         const failedResponse: FailedResponsse = response.error
+
+                        if ( failedResponse.tokenExpired ) {
+                            this.loginService.loginServiceFunction(failedResponse.message)
+                        }
                         this.errorMessage = failedResponse.message
                         setTimeout(() => {
                             this.errorMessage = ""
@@ -115,7 +122,7 @@ export class HeaderComponent {
                     }
                 })
             } else {
-                this.route.navigate(["/auth/login"])
+                this.loginService.loginServiceFunction("Please log-in to add transaction")
             }
         }
     }

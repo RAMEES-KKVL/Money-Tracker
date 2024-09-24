@@ -1,4 +1,12 @@
 <div class="w-full h-full">
     <header-component></header-component>
-    <sidebar-component></sidebar-component>
+    <div class="flex">
+        <sidebar-component class="hidden sm:block"></sidebar-component>
+        <div class="p-5 w-full sm:hidden" style="height: calc(100vh - 4rem);"> 
+            <router-outlet></router-outlet>
+        </div>
+        <div class="hidden sm:p-5 sm:block" style="height: calc(100vh - 4rem); width: calc(100% - 12rem);">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>

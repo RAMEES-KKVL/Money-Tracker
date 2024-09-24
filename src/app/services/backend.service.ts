@@ -9,7 +9,11 @@ import { FailedResponsse, SuccessResponse } from "src/model/interfaces";
 export class BackendService {
     constructor(private http: HttpClient) {}
 
-    addTransaction(data: object, userId: string) {
-        return this.http.post<SuccessResponse | FailedResponsse >(`${Environment.url}/user/add_transaction?userId=${userId}`, data)
+    addTransaction(data: object) {
+        return this.http.post<SuccessResponse | FailedResponsse>(`${Environment.url}/user/add_transaction`, data)
+    }
+
+    incomeTransactions() {
+        return this.http.get<SuccessResponse | FailedResponsse>(`${Environment.url}/user/income`)
     }
 }

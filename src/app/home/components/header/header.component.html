@@ -17,7 +17,7 @@
 
 
 <form [formGroup]="transactionForm">
-    <div *ngIf="!togglePopup" class="absolute top-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div *ngIf="togglePopup" class="absolute top-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div class="w-full xs:w-[80%] max-w-[40rem] h-auto max-h-[85%] px-7 opacity-100 py-5 rounded-lg bg-white flex flex-col gap-3 opacity-1 overflow-x-auto">
             <div class="text-[2rem]"><b>Add Transaction</b></div>
             <div class="flex flex-col">
@@ -85,9 +85,9 @@
                 <input (blur)="trDateChange($event)" formControlName="transactionDate" type="date" class="outline-none bg-gray-200 py-2 px-3 rounded-lg focus:bg-slate-300">
             </div>
             <div class="flex justify-between mt-2">
-                <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400" (click)="addTransaction()">Cancel</button>
+                <button class="h-auto px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400" (click)="addTransaction()">Cancel</button>
                 <div class="text-red-700">{{errorMessage}}</div>
-                <button class="px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400 disabled:cursor-not-allowed" [disabled]="transactionForm.invalid" type="submit" (click)="onSubmit()">Create</button>
+                <button class="h-auto px-5 py-2 rounded-lg transition ease-in-out active:scale-95 bg-slate-400 disabled:cursor-not-allowed" [disabled]="transactionForm.invalid" type="submit" (click)="onSubmit()">Create</button>
             </div>
         </div>
     </div>

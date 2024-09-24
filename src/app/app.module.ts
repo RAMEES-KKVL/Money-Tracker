@@ -8,14 +8,17 @@ import { HeaderComponent } from './home/components/header/header.component';
 import { SidebarComponent } from './home/components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/authInterceptor.service';
+import { IncomePage } from './home/pages/income/income.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageBody,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    IncomePage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,13 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule    
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

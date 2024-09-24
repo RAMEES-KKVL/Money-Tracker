@@ -1,0 +1,29 @@
+<div class="bg-slate-50 shadow-xl w-full h-full overflow-auto p-5">
+    <div class="">
+        
+        <div class="">
+            <div class="flex mb-2 ">
+                <div class="w-1/5 border border-gray-500 px-2 py-1 overflow-auto text-lg">Category</div>
+                <div class="w-1/5 border border-gray-500 px-2 py-1 overflow-auto text-lg">Amount</div>
+                <div class="w-2/5 border border-gray-500 px-2 py-1 overflow-auto text-lg">Description</div>
+                <div class="w-1/5 border border-gray-500 px-2 py-1 overflow-auto text-lg">Action</div>
+            </div>
+
+            <div class="flex" *ngFor="let batch of transactions">
+                <div class="w-1/5 border border-gray-300 px-3 py-2 overflow-auto">{{ batch.transactionCategory }}</div>
+                <div class="w-1/5 border border-gray-300 px-3 py-2 overflow-auto truncate-description">{{ batch.transactionAmount }}</div>
+                <div class="w-2/5 border border-gray-300 px-3 py-2 overflow-auto truncate-description">{{ batch.transactionDescription }}</div>
+                <div class="w-1/5 border border-gray-300 px-3 py-2 overflow-auto flex">
+                    <button class="hover:border hover:border-gray-400 px-2 py-1 rounded-lg active:scale-95 transition ease-in-out">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </button>
+                    <button class="hover:border hover:border-red-800 px-3 py-1 rounded-lg active:scale-95 transition ease-in-out">
+                        <i class="fa-solid fa-trash text-red-800"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
